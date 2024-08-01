@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        /* #5b7065, black */
+        body {
+            background: rgba(48, 64, 64, 1.0);
+            background: -webkit-radial-gradient(center, rgba(48, 64, 64, 1.0) 0%, rgba(0, 0, 0, 1.0) 100%);
+            background: -moz-radial-gradient(center, rgba(48, 64, 64, 1.0) 0%, rgba(0, 0, 0, 1.0) 100%);
+            background: radial-gradient(ellipse at center, rgba(48, 64, 64, 1.0) 0%, rgba(0, 0, 0, 1.0) 100%);
+            font-family: 'Shadows Into Light', cursive;
+            min-height: 100vh;
+        }
+
+        button {
+            height: fit-content;
+            color: #04202c;
+            cursor: pointer;
+            background-color: #c9d1c8;
+        }
+
+        .app {
+            width: 600px;
+            margin: auto;
+            padding-top: 50px;
+            color: white;
+        }
+
+        .input-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            padding: 0px 0px 10px 0px;
+        }
+
+        .to-do-input input {
+            width: 250px;
+            font-family: inherit;
+            font-weight: 600;
+            border: none;
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+            padding: 10px;
+            outline: none;
+        }
+
+        .to-do-input button {
+            color: #5b7065;
+            font-family: inherit;
+            border: none;
+            padding: 10px;
+            font-weight: 900;
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+        .logout_button {
+            margin-top: 20px;
+            color: #5b7065;
+            font-family: inherit;
+            font-weight: 900;
+            border: none;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .to-do-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .to-do-list i {
+            color: #c9d1c8;
+            cursor: pointer;
+        }
+
+        /* .to-do-list i:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        } */
+
+
+        .to-do-list .fa-pen-to-square {
+            color: #5b7065;
+            cursor: pointer;
+        }
+
+
+        .item {
+            display: flex;
+            flex-direction: column;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 8px;
+            box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* .item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        } */
+
+        .input-controller {
+            display: flex;
+            align-items: center;
+        }
+
+        .textarea {
+            width: 100%;
+            line-height: 1.4;
+            color: white;
+            border-radius: 10px;
+            background-color: transparent;
+            padding: 8px;
+            font-size: 1.2rem;
+            font-family: inherit;
+            transition: all 0.30s ease-in-out;
+            resize: none;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .textarea:focus {
+            box-shadow: 0 0 5px white;
+            outline: none;
+        }
+
+
+        /* .textarea:hover{
+            transform: translateY(-5px);
+        } */
+
+        .edit-controller {
+            display: flex;
+            gap: 15px;
+        }
+
+        @media(max-width: 768px) {
+            .app {
+                width: 80%;
+            }
+
+            .input-header {
+                flex-direction: column;
+                padding-bottom: 20px;
+            }
+
+            .to-do-input {
+                display: flex;
+            }
+
+            .to-do-input input {
+                width: 300px;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+    <main class="app">
+        <h1>My Todo List...</h1>
+        <div class="input-header">
+            <h1><span id="date"></span></h1>
+            <!-- <form id="create_form" action="/create-item" method="POST"> -->
+            <div class="to-do-input">
+                <input type="text" id="create_field" name="todo" autofocus autocomplete="off"
+                    placeholder="Enter a task..."><button id="enter" class="add_item">Add New Item</button>
+            </div>
+            <!-- </form> -->
+        </div>
+        <ul id="item_list" class="to-do-list"></ul>
+
+        <div class="buttons">
+            <div>
+                <button class="show_more logout_button">Show More</button>
+                <br />
+            </div>
+            <div>
+                <!-- <form action="/logout" method="POST"> -->
+                    <button class="logout_button" id="logout_from_device">Logout</button>
+                <!-- </form> -->
+            </div>
+        </div>
+    </main>
+
+    <script src="https://unpkg.com/axios@1.6.7/dist/axios.min.js"></script>
+    <script src="/browser.js"></script>
+
+</body>
+
+</html>
